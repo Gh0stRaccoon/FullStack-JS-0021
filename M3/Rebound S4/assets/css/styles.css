@@ -1,0 +1,13 @@
+.activity-card {
+	max-width: 500px;
+}
+
+.activity-card .card-img-overlay {
+  opacity: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	transition: all 0.25s ease;
+}
+
+.activity-card:hover .card-img-overlay {
+	opacity: 1;
+}
