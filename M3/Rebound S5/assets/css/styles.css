@@ -1,0 +1,22 @@
+main {
+  min-height: 100vh;
+}
+
+.itinerario-dates > div {
+	z-index: 1;
+}
+.itinerario-dates::before {
+	content: '';
+	width: 95%;
+	border-top: 1px solid var(--bs-gray-300);
+	position: absolute;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+@media (max-width: 576px) {
+	.itinerario-dates::before {
+		display: none;
+	}
+}
