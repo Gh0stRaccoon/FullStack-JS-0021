@@ -1,84 +1,30 @@
-const travels = [
-	{
-		from: {
-			name: 'Chicago, USA',
-		},
-		to: {
-			name: 'Venecia, IT',
-		},
-		layovers: true,
-	},
-	{
-		from: {
-			name: 'Boston, USA',
-		},
-		to: {
-			name: 'Paris, FR',
-		},
-		layovers: true,
-	},
-	{
-		from: {
-			name: 'Santiago, CL',
-		},
-		to: {
-			name: 'Los Angeles, USA',
-		},
-		layovers: false,
-	},
-	{
-		from: {
-			name: 'Buenos Aires, AR',
-		},
-		to: {
-			name: 'Londres, UK',
-		},
-		layovers: false,
-	},
-];
+function User({ name, email, work, phone, about }) {
+	this.name = name;
+	this.email = email;
+	this.work = work;
+	this.phone = phone;
+	this.about = about;
+	this.print = function () {
+		for (let key in this) {
+			if (key === 'print' || key === undefined) continue;
 
-const confirmLayovers = () => {
-	const originInfo = document.getElementById('origin').value;
-	const destinationInfo = document.getElementById('destination').value;
-	const travelInfo = document.getElementById('travel-info');
-	const infoElement = document.querySelector(`#layovers-info span`);
+			console.log(key);
+			const domElement = document.getElementById(`user-${key}`);
+			domElement.textContent = this[key];
+		}
+	};
+}
 
-	if (originInfo && destinationInfo) {
-		travelInfo.classList.remove('d-none');
-		const hasLayovers =
-			travels.find(
-				(travel) =>
-					travel.from.name === originInfo && travel.to.name === destinationInfo
-			)?.layovers || false;
-		!hasLayovers
-			? (infoElement.textContent = '¡Tu vuelo no tiene escalas!')
-			: (infoElement.textContent = '¡OJO! Tu vuelo tiene escalas.');
+function handleSubmit(e) {
+	e.preventDefault();
+	const userFormdata = new FormData(e.target);
+	const userData = Object.fromEntries(userFormdata);
+	if (Array.from(userFormdata.values()).some((value) => !value)) {
+		return alert('Rellena todos los datos!');
 	}
-};
-const handleTravelChange = (e) => {
-	const id = e.target.id;
-	const value = e.target.value;
+	const user = new User(userData);
+	user.print();
+}
 
-	const infoElement = document.querySelector(`#${id}-info h3`);
-
-	infoElement.textContent = value;
-
-	confirmLayovers();
-};
-
-const initializeSelects = () => {
-	const originSelect = document.getElementById('origin');
-	const destinationSelect = document.getElementById('destination');
-	const originDate = document.getElementById('travel-date');
-	const returnDate = document.getElementById('return-date');
-
-	travels.forEach((travel) => {
-		originSelect.innerHTML += `<option value="${travel.from.name}">${travel.from.name}</option>`;
-		destinationSelect.innerHTML += `<option value="${travel.to.name}">${travel.to.name}</option>`;
-	});
-
-	originSelect.addEventListener('change', handleTravelChange);
-	destinationSelect.addEventListener('change', handleTravelChange);
-};
-
-initializeSelects();
+const userForm = document.getElementById('user-form');
+userForm.addEventListener('submit', handleSubmit);

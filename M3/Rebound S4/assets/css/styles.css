@@ -1,13 +1,22 @@
-.activity-card {
-	max-width: 500px;
+main {
+  min-height: 100vh;
 }
 
-.activity-card .card-img-overlay {
-  opacity: 0;
-	background-color: rgba(0, 0, 0, 0.5);
-	transition: all 0.25s ease;
+.itinerario-dates > div {
+	z-index: 1;
+}
+.itinerario-dates::before {
+	content: '';
+	width: 95%;
+	border-top: 1px solid var(--bs-gray-300);
+	position: absolute;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
-.activity-card:hover .card-img-overlay {
-	opacity: 1;
+@media (max-width: 576px) {
+	.itinerario-dates::before {
+		display: none;
+	}
 }
